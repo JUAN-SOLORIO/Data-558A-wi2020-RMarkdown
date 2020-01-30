@@ -1,0 +1,48 @@
+---
+title: My Rmd document
+author: Juan Solorio
+date: "`r format(Sys.time(),'%d %B, %Y')`"
+bibliography: starwars_citation.bib
+output: bookdown::html_document2
+---
+```{r starwars-img, echo=FALSE, fig.cap="Starwars Logo"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Star_wars2.svg/1920px-Star_wars2.svg.png")
+```
+
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+```
+
+This is a test of RMarkdown using the starwars dataset in tidyverse.
+The dataset has `r dim(starwars)[1]` rows and `r dim(starwars)[2]` columns.
+
+Here is a scatter plot of the data set:
+
+```{r, starwars-plot, fig.cap = "A ggplot of starwars stuff"}
+starwars %>%
+  filter(species == "Human") %>%
+  ggplot()+
+  aes(x = height,
+      y = mass)+
+  geom_point()
+```
+
+Figure \@ref(fig:starwars-plot) shows a scatterplot of height vs mass of human species in the starwars dataset.
+
+Now lets look at a table for a subset of data:
+
+```{r starwars-tbl}
+starwars %>%
+  filter(species == "Human") %>%
+  select(name, height, mass, homeworld) %>%
+  knitr::kable(caption="A knitr kable table of starwars data")
+```
+
+Table \@ref(tab:starwars-tbl) shows the subset of the data for the species 'human' from the starwars dataset.
+
+
+There is more analysis in the article "Statistical Analysis of Star Wars Data". [@starwars2019statistics].
+
+# References cited
+
